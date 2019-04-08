@@ -2,6 +2,7 @@
 #include <hal/xbox.h>
 #endif
 
+#include "doubleList.h"
 #include "outputLine.h"
 #include "navigateMenu.h"
 #include "subsystems.h"
@@ -9,14 +10,7 @@
 #include <threads.h>
 
 #ifdef NXDK
-int _exit(int x)
-{
-    outputLine("_exit called\n");
-    outputLine( " SDL_Error: %s\n", SDL_GetError() );
-    XSleep(5000);
-    XReboot();
-    return 0;
-}
+void _exit() { }
 #endif
 
 int main(void) {
