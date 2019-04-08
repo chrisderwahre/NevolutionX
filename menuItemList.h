@@ -8,50 +8,62 @@
 #include <stdbool.h>
 #include <threads.h>
 
-typedef struct menuItem{
-  char *label;
-  char *itemPath;
-  SDL_Texture *texture;
+class menuItem {
+private:
+  char* label;
+  SDL_Texture* texture;
   int height, width;
-  struct menuItem *next;
-} menuItem;
+public:
+  menuItem* next;
+  menuItem* prev;
 
-typedef struct menuItemList{
-  menuItem *head;
-  menuItem *tail;
+  menuItem(char* text, menuItem* prev, menuItem* next);
+
+  const char* getLabel();
+  void setLabel(char* text);
+  SDL_Texture* getTexture();
+  void setTexture(SDL_Texture* tex);
+  SDL_Rect getSize();
+  int getHeight();
+  void setHeight(int h);
+  int getWidth();
+  void setWidth(int w);
+}
+
+class menuItemList {
+private:
+  menuItem* head;
+  menuItem* tail;
+  TTF_Font* font;
   int length;
-  TTF_Font *font;
-} menuItemList;
+public:
+  menuItemList();
+  menuItemList(TTF_Font* font);
 
-menuItemList mil_createNew();
+  ~menuItemList();
+  void empty();
 
-void mil_setFont(menuItemList *mil, TTF_Font *font);
+  menuItem* begin();
+  menuItem* end();
 
-void mil_push(menuItemList *mil, menuItem *item);
-void mil_push_c(menuItemList *mil, char *item);
+  void setFont(TTF_Font* font);
 
-void mil_append(menuItemList *mil, menuItem *item);
-void mil_append_c(menuItemList *mil, char *item);
-void mil_append_list(menuItemList *mil, ...);
+  void push(menuItem* item);
+  void push(char* item);
+  void append(menuItem* item);
+  void append(char* item);
 
-menuItem *mil_pop(menuItemList *mil);
+  menuItem* pop();
 
-bool mil_isEmpty(menuItemList *mil);
+  bool isEmpty();
+  int length();
 
-int mil_length(menuItemList *mil);
+  menuItem* find(int key);
+  menuItem* remove(int key);
 
-menuItem *mil_find(menuItemList *mil, int key);
-menuItem *mil_remove(menuItemList *mil, int key);
-
-void mil_generateTextures(SDL_Renderer *renderer, menuItemList *mil, int selected);
-void mil_updateTexture(SDL_Renderer *renderer, menuItemList *mil, int key);
-void mil_updatePrevCurrAndNextTexture(SDL_Renderer *renderer, menuItemList *mil, int key);
-
-void mil_drawMenuItems(SDL_Renderer *renderer, menuItemList *mil);
-
-void mil_empty(menuItemList *mil);
-void mil_free(menuItemList *mil);
-
-void mi_destroy(menuItem *mi);
+  void generateTextures(SDL_Renderer* renderer, int selected);
+  void updateTexture(SDL_Renderer* renderer, int key);
+  void updateTwoTextures(SDL_Renderer* renderer, int passive, int selected);
+}
 
 #endif
