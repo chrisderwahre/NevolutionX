@@ -1,17 +1,13 @@
-#ifdef NXDK
-#include <hal/xbox.h>
-#endif
-
 #include "doubleList.hpp"
 #include "gameMenuItem.h"
 //#include "navigateMenu.h"
 #include "outputLine.h"
 #include "subsystems.h"
 
-#include <threads.h>
+//#include <threads.h>
 
 #ifdef NXDK
-void _exit() { }
+void _exit() {}
 #endif
 
 int main(void) {
