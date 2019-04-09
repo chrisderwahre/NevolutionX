@@ -1,7 +1,7 @@
 #ifndef DOUBLELIST_H
 #define DOUBLELIST_H
 
-#include <cstring>
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,7 +11,7 @@ public:
   listItem(T i) :
     prev(nullptr), next(nullptr) {
     payload = (T)malloc(sizeof(i));
-    memcpy(payload, i, sizeof(i));
+    memcpy(payload, i, sizeof(*i));
   }
   listItem<T>* prev;
   listItem<T>* next;

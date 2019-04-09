@@ -4,10 +4,11 @@
 #ifdef NXDK
 #include <xboxrt/debug.h>
 #include "stdio.h"
+#else
+#include <SDL.h>
 #endif
 
 #include "stdarg.h"
-#include <SDL.h>
 
 void outputLine(char* format, ...);
 

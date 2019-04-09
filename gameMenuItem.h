@@ -1,15 +1,15 @@
 #ifndef GAMEMENUITEM_H
 #define GAMEMENUITEM_H
 
-#include "menuItemList.h"
+#include "menuItem.h"
 
-class gameMenuItem : public menuItem {
+class gameMenuItem: public menuItem {
 private:
   char* xbePath;
 public:
-  gameMenuItem(char* text, char* p, menuItem* prev, menuItem* next);
+  gameMenuItem(char* text, char* p);
   char* getXBEPath();
   void setXBEPath(char* p);
-}
+};
 
 #endif
