@@ -39,6 +39,7 @@ int main(void) {
       outputLine("%s, %s\n", t->getLabel(), t->getXBEPath());
     }
   }
+  mainMenu.clear();
   gamesList.clear();
   shutdown_systems(init);
   return init;
