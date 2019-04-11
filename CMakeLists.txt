@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
   menuItem.cpp
   gameMenuItem.cpp
   doubleList.hpp
+  findXBE.cpp
   )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 11)
