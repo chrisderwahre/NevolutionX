@@ -9,8 +9,10 @@ int findXBE(void* list) {
   char tmp[64];
   FILE* tmpFILE = nullptr;
   XBOX_FIND_DATA fData;
-  unsigned int fHandle = XFindFirstFile(path, mask, &fData);
-  if (fHandle == INVALID_HANDLE_VALUE) {
+  // FIXME: Should not have to be casted!
+  HANDLE fHandle = (HANDLE)XFindFirstFile(path, mask, &fData);
+  // FIXME: Should not have to be casted!
+  if (fHandle == (HANDLE)INVALID_HANDLE_VALUE) {
     return -1;
   } else {
     ret = STATUS_SUCCESS;
@@ -19,9 +21,7 @@ int findXBE(void* list) {
   while (ret == STATUS_SUCCESS) {
     if (fData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
       tmp[0] = '\0';
-      strcat(tmp, path);
-      strcat(tmp, fData.cFileName);
-      strcat(tmp, "\\default.xbe");
+      sprintf(tmp, "%s%s\\default.xbe", path, fData.cFileName);
       tmpFILE = fopen(tmp, "rb");
       if (tmpFILE != nullptr) {
         gmi_list->push_back(new gameMenuItem(fData.cFileName, tmp));
@@ -29,10 +29,12 @@ int findXBE(void* list) {
         tmpFILE = nullptr;
       }
     }
-    ret = XFindNextFile(fHandle, &fData);
+    // FIXME: Should not have to be casted!
+    ret = XFindNextFile((unsigned int)fHandle, &fData);
   }
   free(tmp);
-  XFindClose(fHandle);
+  // FIXME: Should not have to be casted!
+  XFindClose((unsigned int)fHandle);
 #else
   for (int i = 0; i < 7; ++i) {
     gmi_list->push_back(new gameMenuItem(path, mask));
