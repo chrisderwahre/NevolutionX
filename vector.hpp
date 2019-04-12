@@ -3,13 +3,16 @@
 
 #include <stdlib.h>
 
-template<typename T>
+template<class T>
 class vector {
 private:
   T* items;
   size_t m_length;
   size_t m_size;
 public:
+
+  typedef T* iterator;
+
   vector() {
     m_size = 4;
     items = (T*)malloc(m_size * sizeof(T));
@@ -24,59 +27,67 @@ public:
 
   void clear() {
     for (int i = 0; i < m_length; ++i) {
-      delete(items[i]);
-      items[i] = nullptr;
+      items[i].~T();
     }
     m_length = 0;
   };
 
-  void push_back(T item) {
+  void push_back(const T & item) {
     if (m_length == m_size) {
       m_size = m_size<<1;
       items = static_cast<T*>(realloc(items, m_size * sizeof(T)));
     }
-    items[m_length] = T(item);
+    items[m_length] = item;
     ++m_length;
   }
 
-  T pop_back() {
-    T tmp = items[m_length - 1];
+  void pop_back() {
+    items[m_length - 1].~T;
     items[m_length - 1] = nullptr;
     --m_length;
-    return tmp;
   }
 
-  bool empty() {
+  bool empty() const{
     return m_length == 0;
   }
-  
-  size_t size() {
+
+  size_t size() const{
     return m_length;
   }
 
-  size_t capacity() {
+  size_t capacity() const{
     return m_size;
   }
 
-  T at(int key) {
+  T& at(int key) {
+#ifndef NXDK
     if (m_length <= key) {
-      return nullptr;
+      throw "Out of bounds";
     }
+#endif
     return items[key];
   }
 
-  T operator[](int key) {
+  T& operator[](unsigned int key) {
     return items[key];
   }
 
-  T front() {
+  iterator begin() {
+    return items;
+  }
+
+  iterator end() {
+    return items + m_length;
+  }
+
+  T& front() {
     return items[0];
   }
 
-  T back() {
+  T& back() {
     return items[m_length - 1];
   }
-  
+
   T erase(int key) {
     if (m_length <= key) {
       return nullptr;
