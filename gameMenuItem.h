@@ -9,7 +9,6 @@ private:
 public:
   gameMenuItem(char* text, char* p);
   gameMenuItem(const char* text, const char* p);
-  ~gameMenuItem();
   char* getXBEPath();
   void setXBEPath(char* p);
 };

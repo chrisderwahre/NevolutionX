@@ -15,7 +15,6 @@ public:
     strcpy(label, text);
   }
   menuItem(const char* text) : menuItem(const_cast<char*>(text)) {}
-  ~menuItem() { free(label);}
   const char* getLabel();
   void setLabel(char* text);
 };

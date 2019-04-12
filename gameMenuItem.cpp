@@ -9,10 +9,6 @@ gameMenuItem::gameMenuItem(char* text, char* p) :
 gameMenuItem::gameMenuItem(const char* text, const char* p) :
   gameMenuItem(const_cast<char*>(text), const_cast<char*>(p)) {}
 
-gameMenuItem::~gameMenuItem() {
-  free(xbePath);
-}
-
 char* gameMenuItem::getXBEPath() {
   return xbePath;
 }

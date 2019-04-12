@@ -5,5 +5,6 @@ const char* menuItem::getLabel() {
 }
 
 void menuItem::setLabel(char* text) {
-  label = text;
+  label = (char*)realloc(label, strlen(text) * sizeof(char));
+  strcpy(label, text);
 }
