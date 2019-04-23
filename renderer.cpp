@@ -70,4 +70,3 @@ void Renderer::drawTexture(SDL_Texture* tex, SDL_Rect dst) {
 SDL_Texture* Renderer::surfaceToTexture(SDL_Surface* surf) {
   return SDL_CreateTextureFromSurface(renderer, surf);
 }
-
