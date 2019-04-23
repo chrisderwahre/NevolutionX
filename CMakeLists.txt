@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME}
   subsystems.cpp
   menuItem.cpp
   gameMenuItem.cpp
-  doubleList.hpp
+  renderer.cpp
   findXBE.cpp
   )
 
