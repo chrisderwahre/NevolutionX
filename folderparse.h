@@ -1,5 +1,5 @@
-#ifndef DIRENT_H
-#define DIRENT_H
+#ifndef FOLDERPARSE_H
+#define FOLDERPARSE_H
 
 #ifdef NXDK
 #include <xboxkrnl/xboxkrnl.h>

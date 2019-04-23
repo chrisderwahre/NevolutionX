@@ -1,4 +1,4 @@
-#include "dirent.h"
+#include "folderparse.h"
 
 #define FIND_DATA_SIZE (sizeof(FILE_DIRECTORY_INFORMATION) + 1024)
 

@@ -5,7 +5,7 @@
 #include "gameMenuItem.h"
 
 #ifdef NXDK
-#include "dirent.h"
+#include "folderparse.h"
 #include <hal/xbox.h>
 #include <stdio.h>
 #endif
