@@ -21,8 +21,11 @@ int main(void) {
   vector<gameMenuItem> gamesList;
   if (init == 0) {
     // Create the worker thread for populating the games list
+    xbeFinderArg xfa;
+    xfa.list = &gamesList;
+    xfa.path = const_cast<char*>("C:\\");
     thrd_t thr;
-    thrd_create(&thr, findXBE, &gamesList);
+    thrd_create(&thr, findXBE, &xfa);
 
     // Create render system
     Renderer r;

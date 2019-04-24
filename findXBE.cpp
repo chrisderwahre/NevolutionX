@@ -1,8 +1,9 @@
 #include "findXBE.h"
 
 int findXBE(void* list) {
-  vector<gameMenuItem>* gmi_list = static_cast<vector<gameMenuItem>*>(list);
-  char* path = const_cast<char*>("C:\\");
+  xbeFinderArg *itm = static_cast<xbeFinderArg*>(list);
+  vector<gameMenuItem>* gmi_list = static_cast<vector<gameMenuItem>*>(itm->list);
+  char* path = const_cast<char*>(itm->path);//("C:\\");
   char* mask = const_cast<char*>("*");
 #ifdef NXDK
   int ret;

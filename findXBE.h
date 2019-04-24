@@ -10,6 +10,11 @@
 #include <stdio.h>
 #endif
 
+struct xbeFinderArg {
+  vector<gameMenuItem> *list;
+  char *path;
+};
+
 int findXBE(void* list);
 
 #endif
