@@ -16,6 +16,8 @@ public:
   int clear();
   void flip();
 
+  SDL_Renderer* getRenderer() {return renderer;}
+
   int setDrawColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0xFF);
 
   void drawTexture(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst);

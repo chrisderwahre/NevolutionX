@@ -3,11 +3,13 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <SDL.h>
 
 #include "outputLine.h"
 
 class menuItem {
 private:
+  SDL_Texture* texture;
   char* label;
 public:
   menuItem(char* text) {
@@ -15,7 +17,12 @@ public:
     strcpy(label, text);
   }
   menuItem(const char* text) : menuItem(const_cast<char*>(text)) {}
+  ~menuItem();
+
   const char* getLabel();
   void setLabel(char* text);
+
+  SDL_Texture* getTexture();
+  void setTexture(SDL_Texture* t);
 };
 #endif
