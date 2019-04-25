@@ -1,21 +1,19 @@
 #include "menuItem.h"
 
 menuItem::menuItem(char* text) {
-  label = (char*)malloc(strlen(text) * sizeof(char));
+  label = (char*)malloc(strlen(text) * sizeof(char) + 1);
   strcpy(label, text);
   texture = nullptr;
 }
 
 menuItem::menuItem(const char* text) :
   menuItem(const_cast<char*>(text)) {
-
 }
 
 menuItem::~menuItem() {
   if (texture != nullptr) {
     SDL_DestroyTexture(texture);
     texture = nullptr;
-    outputLine("menuItem deconstructed!\n");
   }
 }
 

@@ -5,8 +5,6 @@
 #include <string.h>
 #include <SDL.h>
 
-#include "outputLine.h"
-
 class menuItem {
 private:
   SDL_Texture* texture;
