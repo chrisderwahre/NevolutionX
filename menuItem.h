@@ -12,11 +12,8 @@ private:
   SDL_Texture* texture;
   char* label;
 public:
-  menuItem(char* text) {
-    label = (char*)malloc(strlen(text) * sizeof(char));
-    strcpy(label, text);
-  }
-  menuItem(const char* text) : menuItem(const_cast<char*>(text)) {}
+  menuItem(char* text);
+  menuItem(const char* text);
   ~menuItem();
 
   const char* getLabel();
