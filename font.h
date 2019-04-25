@@ -10,14 +10,15 @@
 
 class Font {
 private:
-  bool textureHelper(menuItem* mI, SDL_Color const& c, SDL_Renderer* r);
+  bool textureHelper(menuItem* mI, SDL_Color const& c, Renderer* r);
   TTF_Font* font;
+  size_t texH, texW;
 public:
   Font(const char* path);
   ~Font();
 
   size_t createTextures(vector<menuItem> &items, Renderer* r);
-  size_t createListTexture(vector<gameMenuItem> &items, Renderer* r);
+  size_t createTextures(vector<gameMenuItem> &items, Renderer* r);
 };
 
 #endif
