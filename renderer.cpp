@@ -67,6 +67,55 @@ void Renderer::drawTexture(SDL_Texture* tex, SDL_Rect dst) {
   SDL_RenderCopy(renderer, tex, nullptr, &dst);
 }
 
+void Renderer::drawTexture(SDL_Texture* tex, int x, int y) {
+  SDL_Rect dst = {x, y, 0, 0};
+  SDL_QueryTexture(tex, nullptr, nullptr, &dst.w, &dst.h);
+  drawTexture(tex, dst);
+}
+
 SDL_Texture* Renderer::surfaceToTexture(SDL_Surface* surf) {
   return SDL_CreateTextureFromSurface(renderer, surf);
+}
+
+SDL_Texture* Renderer::compileList(vector<gameMenuItem> l) {
+  if (l.empty()) {
+    return nullptr;
+  }
+  int h;
+  SDL_QueryTexture(l[0].getTexture(), nullptr, nullptr, &h, nullptr);
+  SDL_Texture *ret = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+                                       SDL_TEXTUREACCESS_TARGET, h*l.size(),
+                                       300);
+  if (ret == nullptr) {
+    return nullptr;
+  }
+  SDL_Rect dst = {0, 0, 300, h};
+  SDL_SetRenderTarget(renderer, ret);
+  for (size_t i = 0; i < l.size(); ++i) {
+    drawTexture(l[i].getTexture(), dst);
+    dst.y += h;
+  }
+  SDL_SetRenderTarget(renderer, nullptr);
+  return ret;
+}
+
+SDL_Texture* Renderer::compileList(vector<menuItem> l) {
+  if (l.empty()) {
+    return nullptr;
+  }
+  int h;
+  SDL_QueryTexture(l[0].getTexture(), nullptr, nullptr, &h, nullptr);
+  SDL_Texture *ret = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+                                       SDL_TEXTUREACCESS_TARGET, h*l.size(),
+                                       300);
+  if (ret == nullptr) {
+    return nullptr;
+  }
+  SDL_Rect dst = {0, 0, 300, h};
+  SDL_SetRenderTarget(renderer, ret);
+  for (size_t i = 0; i < l.size(); ++i) {
+    drawTexture(l[i].getTexture(), dst);
+    dst.y += h;
+  }
+  return ret;
 }

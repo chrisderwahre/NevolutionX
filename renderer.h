@@ -6,6 +6,9 @@
 #endif
 
 #include <SDL.h>
+#include "gameMenuItem.h"
+#include "menuItem.h"
+#include "vector.hpp"
 
 class Renderer {
 public:
@@ -22,8 +25,12 @@ public:
 
   void drawTexture(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst);
   void drawTexture(SDL_Texture* tex, SDL_Rect dst);
+  void drawTexture(SDL_Texture* tex, int x, int y);
 
   SDL_Texture* surfaceToTexture(SDL_Surface* surf);
+
+  SDL_Texture* compileList(vector<gameMenuItem> l);
+  SDL_Texture* compileList(vector<menuItem> l);
 
 private:
   SDL_Renderer *renderer;
