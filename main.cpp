@@ -1,5 +1,6 @@
 #include "vector.hpp"
 #include "findXBE.h"
+#include "font.h"
 #include "gameMenuItem.h"
 #include "menuItem.h"
 #include "outputLine.h"
@@ -30,6 +31,11 @@ int main(void) {
     // Create render system
     Renderer r;
     r.init();
+    r.setDrawColor(0x40, 0x40, 0xE0, 0xFF);
+    r.clear();
+
+    // Create font because do it
+    Font f("vegur.ttf");
 
     // Populate main menu
     mainMenu.push_back(menuItem("Games"));
@@ -37,9 +43,15 @@ int main(void) {
     mainMenu.push_back(menuItem("Launch DVD"));
     mainMenu.push_back(menuItem("Settings"));
 
+    int ret = f.createTextures(mainMenu, &r);
+    if (ret != mainMenu.size()) {
+      outputLine("Shit went south");
+    }
+    r.drawTexture(r.compileList(mainMenu), 0, 0);
+
     // Navigate menu and render it
-    for (int i = 0; i < mainMenu.size(); ++i) {
-      menuItem t = mainMenu.at(i);
+    for (size_t i = 0; i < mainMenu.size(); ++i) {
+      menuItem t = mainMenu[i];
       outputLine("%s\n", t.getLabel());
     }
 
