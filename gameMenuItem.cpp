@@ -2,7 +2,7 @@
 
 gameMenuItem::gameMenuItem(char* text, char* p) :
   menuItem(text) {
-  xbePath = (char*)malloc(strlen(p) * sizeof(char));
+  xbePath = (char*)malloc(strlen(p) * sizeof(char) + 1);
   strcpy(xbePath, p);
 }
 
@@ -13,7 +13,6 @@ gameMenuItem::~gameMenuItem() {
   if (getTexture() != nullptr) {
     SDL_DestroyTexture(getTexture());
     setTexture(nullptr);
-    outputLine("gameMenuItem deconstructed!\n");
   }
 }
 
