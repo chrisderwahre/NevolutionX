@@ -60,11 +60,14 @@ public:
   }
 
   T& at(int key) {
-#ifndef NXDK
     if (m_length <= key) {
+#ifndef NXDK
       throw "Out of bounds";
-    }
+#else
+      // We should probably do something here but `throw`
+      // is not yet implemented in NXDK.
 #endif
+    }
     return items[key];
   }
 
