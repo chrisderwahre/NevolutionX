@@ -2,6 +2,8 @@
 
 Font::Font(const char* path) {
   font = TTF_OpenFont(path, 24);
+  active = {0x7F, 0x7F, 0xFF, 0xFF};
+  passive = {0xFF, 0x7F, 0xFF, 0xFF};
 }
 
 Font::~Font() {
@@ -11,6 +13,9 @@ Font::~Font() {
 }
 
 bool Font::textureHelper(menuItem* mI, SDL_Color const& c, Renderer* r) {
+  if (mI == nullptr) {
+    return false;
+  }
   if (mI->getTexture() != nullptr) {
     SDL_DestroyTexture(mI->getTexture());
   }
@@ -30,9 +35,6 @@ size_t Font::createTextures(vector<menuItem> &items, Renderer* r) {
   if (r->getRenderer() == nullptr || items.empty()) {
     return 0;
   }
-  SDL_Color active = {0x7F, 0x7F, 0xFF, 0xFF};
-  SDL_Color passive = {0xFF, 0x7F, 0xFF, 0xFF};
-
   for (size_t i = 0; i < items.size(); ++i) {
     SDL_Color color = (i == 0 ? active : passive);
     if (!textureHelper(&items[i], color, r)) {
@@ -47,9 +49,6 @@ size_t Font::createTextures(vector<gameMenuItem> &items, Renderer* r) {
   if (r->getRenderer() == nullptr || items.empty()) {
     return 0;
   }
-  SDL_Color active = {0x7F, 0x7F, 0xFF, 0xFF};
-  SDL_Color passive = {0xFF, 0x7F, 0xFF, 0xFF};
-
   for (size_t i = 0; i < items.size(); ++i) {
     SDL_Color color = (i == 0 ? active : passive);
     if (!textureHelper(&items[i], color, r)) {
@@ -57,4 +56,18 @@ size_t Font::createTextures(vector<gameMenuItem> &items, Renderer* r) {
     }
   }
   return items.size();
+}
+
+size_t Font::setActive(menuItem *item, Renderer *r) {
+  if (!textureHelper(item, active, r)) {
+    return 0;
+  }
+  return 1;
+}
+
+size_t Font::setPassive(menuItem *item, Renderer *r) {
+  if (!textureHelper(item, passive, r)) {
+    return 0;
+  }
+  return 1;
 }
