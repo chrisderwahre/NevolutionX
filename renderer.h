@@ -21,7 +21,8 @@ public:
 
   SDL_Renderer* getRenderer() {return renderer;}
 
-  int setDrawColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0xFF);
+  int setDrawColor(uint8_t r = 0x40, uint8_t g = 0x40,
+                   uint8_t b = 0xE0, uint8_t a = 0xFF);
 
   void drawTexture(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst);
   void drawTexture(SDL_Texture* tex, SDL_Rect dst);

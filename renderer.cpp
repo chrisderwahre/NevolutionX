@@ -89,9 +89,10 @@ SDL_Texture* Renderer::compileList(vector<gameMenuItem> l) {
   if (ret == nullptr) {
     return nullptr;
   }
-  SDL_Rect dst = {0, 0, 300, h};
+  SDL_Rect dst = {0, 0, 0, h};
   SDL_SetRenderTarget(renderer, ret);
   for (size_t i = 0; i < l.size(); ++i) {
+    SDL_QueryTexture(l[i].getTexture(), nullptr, nullptr, &dst.w, &dst.h);
     drawTexture(l[i].getTexture(), dst);
     dst.y += h;
   }
@@ -104,18 +105,22 @@ SDL_Texture* Renderer::compileList(vector<menuItem> l) {
     return nullptr;
   }
   int h;
-  SDL_QueryTexture(l[0].getTexture(), nullptr, nullptr, &h, nullptr);
+  SDL_QueryTexture(l[0].getTexture(), nullptr, nullptr, nullptr, &h);
   SDL_Texture *ret = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
-                                       SDL_TEXTUREACCESS_TARGET, h*l.size(),
-                                       300);
+                                       SDL_TEXTUREACCESS_TARGET, 300,
+                                       h*l.size());
   if (ret == nullptr) {
     return nullptr;
   }
-  SDL_Rect dst = {0, 0, 300, h};
+  SDL_Rect dst = {0, 0, 0, h};
   SDL_SetRenderTarget(renderer, ret);
+  setDrawColor();
+  clear();
   for (size_t i = 0; i < l.size(); ++i) {
+    SDL_QueryTexture(l[i].getTexture(), nullptr, nullptr, &dst.w, &dst.h);
     drawTexture(l[i].getTexture(), dst);
     dst.y += h;
   }
+  SDL_SetRenderTarget(renderer, nullptr);
   return ret;
 }
