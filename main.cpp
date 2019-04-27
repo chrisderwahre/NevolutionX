@@ -28,7 +28,7 @@ int main(void) {
     // Create the worker thread for populating the games list
     xbeFinderArg xfa;
     xfa.list = &gamesList;
-    xfa.path = const_cast<char*>("C:\\");
+    xfa.path = const_cast<char*>("F:\\Games");
     thrd_t thr;
     int thread_status = 1;
     thrd_create(&thr, findXBE, &xfa);
@@ -91,11 +91,13 @@ int main(void) {
           r.drawTexture(menuListTexture, 0, 0);
           r.flip();
         }
+#ifdef NXDK
         if (getAnalogKeyDown(&g_Pads[0], XPAD_A)) {
           mainMenuSelection = currItem + 1;
           currItem = 0;
           prevItem = 0;
         }
+#endif
         break;
       case 1:
         if (thread_status == 1) {
@@ -125,6 +127,7 @@ int main(void) {
           r.drawTexture(menuListTexture, 0, 0);
           r.flip();
         }
+#ifdef NXDK
         if (getAnalogKeyDown(&g_Pads[0], XPAD_A)) {
           if (currItem != (gamesList.size() - 1)) {
             XLaunchXBE(gamesList[currItem].getXBEPath());
@@ -132,13 +135,16 @@ int main(void) {
           mainMenuSelection = 0;
           break;
         }
+#endif
         break;
       case 2:
         // FIXME: Essentially the same deal as case 1;
         // ought to be trivial to create a function for this mess.
         break;
       case 3:
+#ifdef NXDK
         XLaunchXBE(const_cast<char*>("D:\\default.xbe"));
+#endif
         mainMenuSelection = 0;
         break;
       case 4:
